@@ -108,7 +108,7 @@ make verify
 
 ## 文档导航
 
-- [能力分层](/docs/kernel/layers/00-overview) — 从 errorx/logx 到 serverx/gatewayx/deploy 的真实代码分层说明
+- [能力分层](/docs/kernel/layers/overview) — 从 errorx/logx 到 serverx/gatewayx/deploy 的真实代码分层说明
 - [开发规范](/docs/kernel/agents) — AI Agent / 开发者开发规范
 - [Roadmap](/docs/kernel/roadmap) — 功能路线图
 - [Changelog](/docs/kernel/changelog) — 变更日志
