@@ -11,11 +11,11 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://aisphereio.dev',
+  url: 'https://aisphereio.github.io',
   baseUrl: '/',
 
   organizationName: 'aisphereio',
-  projectName: 'website',
+  projectName: 'aisphereio.github.io',
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
