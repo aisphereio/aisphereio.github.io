@@ -1,0 +1,8 @@
+{
+  "label": "能力分层",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "按真实 Kernel 代码从基础能力到服务装配、Gateway 与部署生成逐层解释框架能力。"
+  }
+}
