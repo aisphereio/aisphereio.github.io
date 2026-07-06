@@ -18,7 +18,7 @@ flowchart LR
     F --> G[errorx Response]
 ```
 
-业务声明契约，Kernel 负责检查、生成、装配、治理和验证。业务项目优先写 proto contract 和领域逻辑，不手写 transport glue、错误协议转换、访问控制、审计、限流或 Gateway 分发。
+业务声明契约，Kernel 负责检查、生成、装配、治理和验证。业务项目优先写 proto contract 和领域逻辑，不手写 transport glue、错误协议转换、访问控制、审计、限流、Gateway 分发或部署路由清单。
 
 ## 快速开始
 
@@ -28,6 +28,7 @@ kernel new todo-service
 cd todo-service
 make tools
 make api
+make deploy
 make proto-check
 make verify
 make run
@@ -84,6 +85,7 @@ kernel new todo-service --disable iam,gateway,dtmx
 - `cmd/protoc-gen-go-errors` — 错误代码生成器
 - `cmd/protoc-gen-go-authz` — 访问控制生成器
 - `cmd/protoc-gen-go-gateway` — Gateway 生成器
+- `cmd/protoc-gen-go-deploy` — Gateway API HTTPRoute 部署清单生成器
 - `cmd/protoc-gen-go-kernel` — Kernel 元数据生成器
 - `cmd/buf-check-aisphere` — 契约检查器
 
@@ -92,6 +94,7 @@ kernel new todo-service --disable iam,gateway,dtmx
 ```bash
 make tools
 make api
+make deploy
 make test
 make test-cmd
 make vet
@@ -105,6 +108,7 @@ make verify
 
 ## 文档导航
 
+- [能力分层](/docs/kernel/layers/00-overview) — 从 errorx/logx 到 serverx/gatewayx/deploy 的真实代码分层说明
 - [开发规范](/docs/kernel/agents) — AI Agent / 开发者开发规范
 - [Roadmap](/docs/kernel/roadmap) — 功能路线图
 - [Changelog](/docs/kernel/changelog) — 变更日志
