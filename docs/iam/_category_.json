@@ -1,0 +1,8 @@
+{
+  "label": "IAM 服务",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Aisphere IAM 身份认证、目录查询和权限关系服务。"
+  }
+}

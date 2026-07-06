@@ -8,17 +8,55 @@ Aisphere Hub 是 AIHub 能力的**业务服务**，涵盖技能目录、技能�
 
 ## 架构
 
-```text
-api/                  Protobuf APIs and generated HTTP/gRPC/Kernel bindings
-cmd/aisphere-hub/      Application entrypoint
-configs/              Local config with Kernel module defaults
-migrations/postgres/  PostgreSQL schema migrations
-internal/conf/         Config DTOs scanned by configx
-internal/server/       Kernel HTTP and gRPC server construction
-internal/service/      Transport-facing services
-internal/biz/          Use cases, domain contracts, errorx errors
-internal/data/         Repositories and Kernel resource initialization
-docs/ai/              Engineering notes for AI-assisted maintenance
+```mermaid
+flowchart TB
+    subgraph "Hub 服务目录结构"
+        API[api/<br/>Protobuf APIs + 生成代码]
+        CMD[cmd/aisphere-hub/<br/>应用入口]
+        CONF[configs/<br/>本地配置]
+        MIG[migrations/postgres/<br/>数据库迁移]
+        SVC[internal/service/<br/>Transport 服务层]
+        BIZ[internal/biz/<br/>业务逻辑层]
+        DATA[internal/data/<br/>数据访问层]
+    end
+
+    subgraph "存储"
+        PG[(PostgreSQL<br/>Control Plane)]
+        S3[(MinIO/S3<br/>Data Plane)]
+    end
+
+    SVC --> BIZ
+    BIZ --> DATA
+    DATA --> PG
+    DATA --> S3
+```
+
+## 存储架构
+
+```mermaid
+flowchart LR
+    subgraph "Control Plane"
+        PG[(PostgreSQL)]
+        PG_META[技能元数据]
+        PG_VER[版本状态]
+        PG_FILE[文件索引]
+        PG_MAN[Manifest]
+    end
+
+    subgraph "Data Plane"
+        MINIO[(MinIO/S3)]
+        S3_PKG[包内容]
+        S3_DRAFT[草稿文件]
+        S3_DL[可下载产物]
+    end
+
+    PG_META --> PG
+    PG_VER --> PG
+    PG_FILE --> PG
+    PG_MAN --> PG
+    S3_PKG --> MINIO
+    S3_DRAFT --> MINIO
+    S3_DL --> MINIO
 ```
 
 ## 主要端点

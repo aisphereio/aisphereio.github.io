@@ -1,0 +1,8 @@
+{
+  "label": "Kernel 框架",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Aisphere Kernel 是规范驱动的微服务基础框架，提供 proto-first 开发范式、代码生成、治理中间件和运行时装配。"
+  }
+}

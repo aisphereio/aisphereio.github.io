@@ -8,13 +8,37 @@ Aisphere Gateway 是基于 `github.com/aisphereio/kernel` 的**边界网关服�
 
 ## 架构
 
-```text
-外部请求
-  -> Gateway HTTP server
-  -> route matcher (读取 route registry)
-  -> 边界准入 (PUBLIC / INTERNAL / AUTHENTICATED)
-  -> generated upstream invoker (gRPC 转发到后端)
-  -> 后端服务
+```mermaid
+flowchart TB
+    subgraph "外部请求"
+        REQ[HTTP Request]
+    end
+
+    subgraph "Gateway 处理流程"
+        MATCH[Route Matcher<br/>读取 route registry]
+        ACCESS[边界准入<br/>PUBLIC / INTERNAL / AUTHENTICATED]
+        INVOKE[Upstream Invoker<br/>gRPC 转发到后端]
+    end
+
+    subgraph "路由来源"
+        ETCD[(etcd<br/>Route Registry)]
+        MANIFEST[Generated<br/>Route Manifest]
+    end
+
+    subgraph "后端服务"
+        IAM[IAM 服务]
+        HUB[Hub 服务]
+        OTHER[其他服务]
+    end
+
+    MANIFEST --> ETCD
+    ETCD --> MATCH
+    REQ --> MATCH
+    MATCH --> ACCESS
+    ACCESS --> INVOKE
+    INVOKE --> IAM
+    INVOKE --> HUB
+    INVOKE --> OTHER
 ```
 
 Gateway **不做** 资源级最终授权，不手写业务路由表，不直接暴露 INTERNAL 路由。

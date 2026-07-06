@@ -1,0 +1,8 @@
+{
+  "label": "Hub 服务",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "Aisphere Hub AIHub 业务服务：技能目录、版本管理、包存储、草稿工作区。"
+  }
+}

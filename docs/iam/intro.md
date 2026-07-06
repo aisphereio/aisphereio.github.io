@@ -8,14 +8,29 @@ Aisphere IAM 是基于 `github.com/aisphereio/kernel` 的**身份认证、目录
 
 ## 架构
 
-```text
-外部请求
-  -> HTTP / gRPC server
-  -> IAMAuthService   (登录、令牌管理、用户信息)
-  -> IAMDirectoryService (用户、组织、组目录查询)
-  -> IAMPermissionService (权限检查、关系写入、资源/主体查找)
-  -> Casdoor (认证后端)
-  -> SpiceDB (授权后端)
+```mermaid
+flowchart TB
+    subgraph "外部请求"
+        REQ[HTTP / gRPC Request]
+    end
+
+    subgraph "IAM 服务"
+        Auth[IAMAuthService<br/>登录、令牌、用户信息]
+        Dir[IAMDirectoryService<br/>用户、组织、组目录]
+        Perm[IAMPermissionService<br/>权限检查、关系管理]
+    end
+
+    subgraph "后端"
+        CAS[Casdoor<br/>身份认证]
+        SPDB[SpiceDB<br/>关系授权]
+    end
+
+    REQ --> Auth
+    REQ --> Dir
+    REQ --> Perm
+    Auth --> CAS
+    Dir --> CAS
+    Perm --> SPDB
 ```
 
 ## 提供的服务

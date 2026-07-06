@@ -1,0 +1,8 @@
+{
+  "label": "Git Server",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "description": "Aisphere Git Server 基于 Kernel 的 Git 服务。"
+  }
+}

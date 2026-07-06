@@ -8,12 +8,14 @@ Aisphere Kernel 是 Aisphere 项目的**规范驱动微服务基础框架**。
 
 ## 核心理念
 
-```text
-proto contract
-  -> buf-check-aisphere
-  -> protoc generators
-  -> requestx.Info / accessx / gatewayx / serverx
-  -> business service implementation
+```mermaid
+flowchart LR
+    A[Proto Contract] --> B[buf-check-aisphere]
+    B --> C[Protoc Generators]
+    C --> D[requestx.Info]
+    D --> E[accessx / gatewayx / serverx]
+    E --> F[Business Service]
+    F --> G[errorx Response]
 ```
 
 业务声明契约，Kernel 负责检查、生成、装配、治理和验证。业务项目优先写 proto contract 和领域逻辑，不手写 transport glue、错误协议转换、访问控制、审计、限流或 Gateway 分发。
