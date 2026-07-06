@@ -20,6 +20,13 @@ const config: Config = {
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
+  scripts: [
+    {
+      src: '/js/mermaid-interactive.js',
+      async: true,
+    },
+  ],
+
   markdown: {
     mermaid: true,
   },
@@ -53,6 +60,9 @@ const config: Config = {
               path: '',
             },
           },
+          remarkPlugins: [
+            [require('docusaurus-remark-plugin-tab-blocks'), {}],
+          ],
         },
         blog: {
           showReadingTime: true,
@@ -67,6 +77,13 @@ const config: Config = {
         },
         theme: {
           customCss: './src/css/custom.css',
+        },
+        sitemap: {
+          lastmod: 'datetime',
+          changefreq: 'weekly',
+          priority: 0.5,
+          ignorePatterns: ['/blog/tags/**', '/blog/authors/**'],
+          filename: 'sitemap.xml',
         },
       } satisfies Preset.Options,
     ],
@@ -83,6 +100,53 @@ const config: Config = {
         highlightSearchTermsOnTargetPage: true,
         explicitSearchResultPath: true,
         searchBarPosition: 'auto',
+      },
+    ],
+  ],
+
+  plugins: [
+    'docusaurus-plugin-image-zoom',
+    [
+      '@docusaurus/plugin-pwa',
+      {
+        debug: false,
+        offlineModeActivationStrategies: [
+          'appInstalled',
+          'standalone',
+          'queryString',
+        ],
+        pwaHead: [
+          {
+            tagName: 'link',
+            rel: 'icon',
+            href: 'img/favicon.ico',
+          },
+          {
+            tagName: 'link',
+            rel: 'manifest',
+            href: '/manifest.json',
+          },
+          {
+            tagName: 'meta',
+            name: 'theme-color',
+            content: '#2563eb',
+          },
+          {
+            tagName: 'meta',
+            name: 'apple-mobile-web-app-capable',
+            content: 'yes',
+          },
+          {
+            tagName: 'meta',
+            name: 'apple-mobile-web-app-status-bar-style',
+            content: 'black-translucent',
+          },
+          {
+            tagName: 'link',
+            rel: 'apple-touch-icon',
+            href: 'img/logo.svg',
+          },
+        ],
       },
     ],
   ],
@@ -206,7 +270,18 @@ const config: Config = {
         maxTextSize: 50000,
       },
     },
-  } satisfies Preset.ThemeConfig,
+zoom: {
+      selector: '.markdown img',
+      background: {
+        light: 'rgba(255, 255, 255, 0.9)',
+        dark: 'rgba(0, 0, 0, 0.9)',
+      },
+      config: {
+        margin: 40,
+        scrollOffset: 0,
+      },
+    },
+} satisfies Preset.ThemeConfig,
 };
 
 export default config;
