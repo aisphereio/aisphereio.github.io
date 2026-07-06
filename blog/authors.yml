@@ -1,0 +1,8 @@
+aisphere:
+  name: Aisphere Team
+  title: Aisphere
+  url: https://github.com/aisphereio
+  image_url: https://github.com/aisphereio.png
+  page: true
+  socials:
+    github: aisphereio
