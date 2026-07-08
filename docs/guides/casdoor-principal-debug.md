@@ -569,8 +569,42 @@ IAM 业务代码全部使用 **`authn.PrincipalFromContext(ctx)`**，符合 Kern
 | `internal/service/iam.go:159` | `requireZonePermission()` SpiceDB 权限检查 | `authn.PrincipalFromContext` → `principal.SubjectID` + `principal.OrgID` |
 | `internal/service/authz_admin.go:201` | `requireGlobalAuthz()` 全局权限检查 | `authn.PrincipalFromContext` → `principal.SubjectID` + `principal.OrgID` + `principal.ProjectID` |
 | `internal/server/group_http.go:171` | `runWithGatewayPrincipal()` HTTP handler 辅助 | `authn.PrincipalFromContext` |
+| `internal/service/control_plane.go:507` | `currentPrincipalSubject()` 控制面辅助 | `authn.PrincipalFromContext` → `SubjectType` + `SubjectID` |
 
 `contextx.PrincipalFromContext` 仅由 protoc 生成的 authz 中间件代码使用（`api/iam/v1/*_authz.pb.go`），用于自动化的权限检查。
+
+### PR #29 修复：控制面写操作使用 ctx Principal
+
+**修复前**：`CreateOrganization / CreateProject / UpsertResource / BindResource / GrantAccess / RevokeAccess` 等控制面写操作，`Owner / CreatedBy / Actor` 来自请求体（`req.GetOwner()`、`in.GetCreatedBy()`），而不是服务端 ctx。
+
+**修复后**（PR #29）：统一从 Kernel ctx 取当前调用者：
+
+```go
+func currentPrincipalSubject(ctx context.Context) (string, string, error) {
+    principal, ok := authn.PrincipalFromContext(ctx)
+    if !ok || !principal.IsAuthenticated() {
+        return "", "", authn.ErrMissingCredential("kernel principal is required")
+    }
+    subjectType := strings.TrimSpace(principal.SubjectType)
+    if subjectType == "" {
+        subjectType = authn.SubjectTypeUser
+    }
+    return subjectType, strings.TrimSpace(principal.SubjectID), nil
+}
+```
+
+具体行为变化：
+
+| 写操作 | 修复前主体来源 | 修复后主体来源 |
+|--------|:-------------:|:-------------:|
+| `CreateOrganization.Owner` | `req.GetOwner()` | 强制来自 ctx Principal |
+| `CreateProject.CreatedBy` | 请求体 | 来自 ctx Principal |
+| `CreateProject.Owner` | 请求体 | 请求 owner 或 ctx Principal fallback |
+| `UpsertResource.CreatedBy` | `in.GetCreatedBy()` | 来自 ctx Principal |
+| `UpsertResource.Owner` | 请求体 | 请求 owner 或 ctx Principal fallback |
+| `BindResource.CreatedBy` | 请求体 | 来自 ctx Principal |
+| `GrantAccess.CreatedBy` | 请求体 | 来自 ctx Principal |
+| `RevokeAccess.Actor` | 请求体 | 来自 ctx Principal |
 
 ### 是否符合 Kernel 推荐范式
 
@@ -584,5 +618,6 @@ IAM 业务代码全部使用 **`authn.PrincipalFromContext(ctx)`**，符合 Kern
 | 使用 `securityx.NewRuntime` | ✅ | `access.go:42` 创建 security runtime |
 | 使用 `SkipPolicy` 区分公开/认证/授权接口 | ✅ | `access.go:61` 的 `iamSkipPolicyResolver` |
 | 不直接操作 Casdoor SDK | ✅ | 通过 Kernel `authn/casdoor` 适配器 |
+| 控制面写操作 Actor 来自 ctx | ✅ | PR #29 修复，不再信任请求体 |
 
-**结论：IAM 完全遵循 Kernel 推荐的 Principal 使用范式。** 所有身份信息通过 `authn.PrincipalFromContext(ctx)` 获取，不直接解析 header，认证由 Kernel middleware 自动完成。
+**结论：IAM 完全遵循 Kernel 推荐的 Principal 使用范式。** 所有身份信息通过 `authn.PrincipalFromContext(ctx)` 获取，不直接解析 header，认证由 Kernel middleware 自动完成。控制面写操作的 `Owner / CreatedBy / Actor` 统一从 Kernel ctx 获取，不再信任请求体。
