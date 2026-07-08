@@ -51,7 +51,7 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/aisphereio/aisphereio.github.io/edit/main/',
-          showLastUpdateTime: false,
+          showLastUpdateTime: true,
           showLastUpdateAuthor: false,
           lastVersion: 'current',
           versions: {
@@ -271,17 +271,17 @@ const config: Config = {
       },
     },
 zoom: {
-      selector: '.markdown img',
-      background: {
-        light: 'rgba(255, 255, 255, 0.9)',
-        dark: 'rgba(0, 0, 0, 0.9)',
-      },
-      config: {
-        margin: 40,
-        scrollOffset: 0,
-      },
-    },
-} satisfies Preset.ThemeConfig,
+	      selector: '.markdown img',
+	      background: {
+	        light: 'rgba(255, 255, 255, 0.9)',
+	        dark: 'rgba(0, 0, 0, 0.9)',
+	      },
+	      config: {
+	        margin: 40,
+	        scrollOffset: 0,
+	      },
+	    },
+	  } satisfies Preset.ThemeConfig,
 };
 
 export default config;
