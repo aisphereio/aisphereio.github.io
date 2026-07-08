@@ -48,7 +48,7 @@ const config: Config = {
     [
       'classic',
       {
-        docs: {
+docs: {
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/aisphereio/aisphereio.github.io/edit/main/',
           showLastUpdateTime: true,
@@ -63,6 +63,8 @@ const config: Config = {
           remarkPlugins: [
             [require('docusaurus-remark-plugin-tab-blocks'), {}],
           ],
+          // Enable breadcrumbs for document navigation context
+          breadcrumbs: true,
         },
         blog: {
           showReadingTime: true,
@@ -106,6 +108,16 @@ const config: Config = {
 
   plugins: [
     'docusaurus-plugin-image-zoom',
+    [
+      '@docusaurus/plugin-ideal-image',
+      {
+        quality: 85,
+        max: 1200,
+        min: 400,
+        steps: 4,
+        disableInDev: false,
+      },
+    ],
     [
       '@docusaurus/plugin-pwa',
       {
@@ -258,11 +270,16 @@ const config: Config = {
       darkTheme: prismThemes.oneDark,
       additionalLanguages: ['protobuf', 'go', 'powershell', 'bash', 'sql', 'typescript', 'yaml', 'json', 'diff'],
     },
-    docs: {
+docs: {
       sidebar: {
         hideable: true,
         autoCollapseCategories: true,
       },
+    },
+    // Enable table of contents auto-collapse for deep documents
+    tableOfContents: {
+      minHeadingLevel: 2,
+      maxHeadingLevel: 5,
     },
     mermaid: {
       theme: {light: 'neutral', dark: 'dark'},
@@ -270,18 +287,18 @@ const config: Config = {
         maxTextSize: 50000,
       },
     },
-zoom: {
-	      selector: '.markdown img',
-	      background: {
-	        light: 'rgba(255, 255, 255, 0.9)',
-	        dark: 'rgba(0, 0, 0, 0.9)',
-	      },
-	      config: {
-	        margin: 40,
-	        scrollOffset: 0,
-	      },
-	    },
-	  } satisfies Preset.ThemeConfig,
+    zoom: {
+      selector: '.markdown img',
+      background: {
+        light: 'rgba(255, 255, 255, 0.9)',
+        dark: 'rgba(0, 0, 0, 0.9)',
+      },
+      config: {
+        margin: 40,
+        scrollOffset: 0,
+      },
+    },
+  } satisfies Preset.ThemeConfig,
 };
 
 export default config;
