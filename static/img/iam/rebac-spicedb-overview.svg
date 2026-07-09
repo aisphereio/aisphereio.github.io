@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Aisphere ReBAC and SpiceDB overview</title>
+  <desc id="desc">A high level diagram showing Casdoor as identity source, IAM as control plane, SpiceDB as authorization graph, and Gateway Kernel as enforcement plane.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 18; }
+      .node { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; rx: 14; }
+      .node2 { fill: #f0fdf4; stroke: #16a34a; stroke-width: 2; rx: 14; }
+      .node3 { fill: #fff7ed; stroke: #ea580c; stroke-width: 2; rx: 14; }
+      .node4 { fill: #f5f3ff; stroke: #7c3aed; stroke-width: 2; rx: 14; }
+      .title { font: 700 32px Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #475569; }
+      .label { font: 700 20px Arial, sans-serif; fill: #0f172a; }
+      .small { font: 400 15px Arial, sans-serif; fill: #334155; }
+      .tiny { font: 400 13px Arial, sans-serif; fill: #64748b; }
+      .arrow { stroke: #334155; stroke-width: 2.4; fill: none; marker-end: url(#arrowhead); }
+      .dashed { stroke-dasharray: 8 8; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155" />
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1280" height="720" />
+  <text class="title" x="52" y="64">Aisphere ReBAC / SpiceDB 权限体系</text>
+  <text class="subtitle" x="52" y="96">Casdoor 管身份，IAM 管关系，SpiceDB 算权限，Gateway / Kernel 执行权限</text>
+
+  <rect class="panel" x="40" y="130" width="250" height="460" />
+  <text class="label" x="68" y="170">身份源</text>
+  <rect class="node" x="68" y="205" width="190" height="92" />
+  <text class="label" x="96" y="240">Casdoor</text>
+  <text class="small" x="96" y="267">OIDC / JWT</text>
+  <text class="small" x="96" y="288">User / Org / Group</text>
+  <rect class="node" x="68" y="335" width="190" height="92" />
+  <text class="label" x="96" y="370">Principal</text>
+  <text class="small" x="96" y="397">user_uuid</text>
+  <text class="small" x="96" y="418">service account</text>
+
+  <rect class="panel" x="340" y="130" width="260" height="460" />
+  <text class="label" x="368" y="170">控制面</text>
+  <rect class="node2" x="368" y="205" width="204" height="118" />
+  <text class="label" x="400" y="240">IAM</text>
+  <text class="small" x="400" y="267">目录同步</text>
+  <text class="small" x="400" y="288">授权管理</text>
+  <text class="small" x="400" y="309">审计与补偿</text>
+  <rect class="node2" x="368" y="365" width="204" height="118" />
+  <text class="label" x="400" y="400">Business DB</text>
+  <text class="small" x="400" y="427">资源元数据</text>
+  <text class="small" x="400" y="448">项目 / Skill / Agent</text>
+  <text class="small" x="400" y="469">Outbox 事件</text>
+
+  <rect class="panel" x="650" y="130" width="280" height="460" />
+  <text class="label" x="678" y="170">权限图</text>
+  <rect class="node3" x="678" y="205" width="224" height="122" />
+  <text class="label" x="716" y="240">SpiceDB</text>
+  <text class="small" x="716" y="267">Schema</text>
+  <text class="small" x="716" y="288">Relationships</text>
+  <text class="small" x="716" y="309">Check / Lookup</text>
+  <rect class="node3" x="678" y="365" width="224" height="122" />
+  <text class="label" x="716" y="400">ReBAC Graph</text>
+  <text class="small" x="716" y="427">user - group - org</text>
+  <text class="small" x="716" y="448">org - project - skill</text>
+  <text class="small" x="716" y="469">relation - permission</text>
+
+  <rect class="panel" x="980" y="130" width="260" height="460" />
+  <text class="label" x="1008" y="170">执行面</text>
+  <rect class="node4" x="1008" y="205" width="204" height="118" />
+  <text class="label" x="1038" y="240">Gateway</text>
+  <text class="small" x="1038" y="267">JWT 校验</text>
+  <text class="small" x="1038" y="288">Header 清洗</text>
+  <text class="small" x="1038" y="309">Principal 注入</text>
+  <rect class="node4" x="1008" y="365" width="204" height="118" />
+  <text class="label" x="1038" y="400">Kernel Guard</text>
+  <text class="small" x="1038" y="427">protoc authz</text>
+  <text class="small" x="1038" y="448">CheckPermission</text>
+  <text class="small" x="1038" y="469">allow / deny</text>
+
+  <path class="arrow" d="M258 250 C310 250, 315 250, 368 250" />
+  <path class="arrow" d="M572 260 C620 260, 628 260, 678 260" />
+  <path class="arrow" d="M902 260 C952 260, 958 260, 1008 260" />
+  <path class="arrow dashed" d="M1110 365 C1110 330, 1000 335, 902 365" />
+  <path class="arrow dashed" d="M470 365 C470 340, 590 330, 678 365" />
+
+  <text class="tiny" x="300" y="236">OIDC claims / user_uuid</text>
+  <text class="tiny" x="604" y="236">write relationships</text>
+  <text class="tiny" x="936" y="236">check permission</text>
+  <text class="tiny" x="946" y="350">runtime decision</text>
+  <text class="tiny" x="512" y="350">outbox sync</text>
+
+  <rect class="panel" x="40" y="620" width="1200" height="58" />
+  <text class="small" x="68" y="653">核心原则：资源详情不放 SpiceDB；SpiceDB 只保存关系事实并计算权限。业务代码检查 view / edit / manage / delete 这类 permission，而不是直接检查 owner / editor / viewer 这类 relation。</text>
+</svg>
