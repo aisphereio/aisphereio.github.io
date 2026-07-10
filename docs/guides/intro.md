@@ -8,6 +8,10 @@ sidebar_position: 1
 
 ## 内容
 
+- [快速开始](/docs/guides/quickstart) — 从零开始搭建开发环境
 - [本地开发环境](/docs/guides/local-stack) — 如何启动完整的本地开发栈
 - [架构概览](/docs/guides/architecture) — 系统架构设计
-- [快速开始](/docs/guides/quickstart) — 从零开始搭建开发环境
+- [微服务开发指导手册](/docs/guides/microservice-dev-guide) — 完整的微服务开发规范、认证授权、部署运维指南
+- [Envoy + Casdoor OIDC 认证](/docs/guides/envoy-casdoor-oidc-authn) — Envoy Gateway 与 Casdoor 的 OIDC 集成
+- [Gateway External Auth](/docs/guides/gateway-external-auth-principal-jwt) — Gateway 外部认证与 Principal JWT
+- [Casdoor Principal 调试](/docs/guides/casdoor-principal-debug) — Casdoor 认证主体调试指南
