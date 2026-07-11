@@ -164,7 +164,52 @@ spec:
             header: x-aisphere-external-scope
 ```
 
-## 3. 完整请求链路
+## 3. 可信身份头清洗策略
+
+为防止客户端伪造身份头绕过 `gateway_trusted` 信任边界，必须在 Envoy Gateway 处理请求的最早期剥离所有 `x-aisphere-*` 头。Envoy 完成 OIDC/JWT 验证后再通过 `claimToHeaders` 注入可信值。
+
+```yaml
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: ClientTrafficPolicy
+metadata:
+  name: aisphere-sanitize-headers
+  namespace: aisphere
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: aisphere-gateway
+  headers:
+    earlyRequestHeaders:
+      remove:
+        - x-aisphere-auth-verified
+        - x-aisphere-subject
+        - x-aisphere-external-sub
+        - x-aisphere-external-id
+        - x-aisphere-external-issuer
+        - x-aisphere-external-email
+        - x-aisphere-external-name
+        - x-aisphere-external-display-name
+        - x-aisphere-external-username
+        - x-aisphere-external-phone
+        - x-aisphere-external-owner
+        - x-aisphere-external-scope
+        - x-aisphere-principal
+        - x-aisphere-user-id
+        - x-aisphere-org-id
+        - x-aisphere-project-id
+        - x-aisphere-roles
+        - x-aisphere-groups
+        - x-aisphere-scopes
+        - x-aisphere-authz-decision-id
+        - x-aisphere-internal-token
+        - x-aisphere-internal-jwt
+        - x-internal-jwt
+```
+
+> **安全原则**：`gateway_trusted` 信任的不是一个 Header，而是"经过 Envoy 的受控网络路径"。Header 清洗是这条信任链的第一道防线。该策略必须应用于所有外部 Gateway listener，不能被 public route 跳过。
+
+## 4. 完整请求链路
 
 ### 3.1 未登录用户访问
 
