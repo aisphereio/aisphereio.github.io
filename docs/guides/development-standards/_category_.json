@@ -1,0 +1,8 @@
+{
+  "label": "开发规范",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Aisphere 统一工程规范、资源建模、接口设计、权限对象与跨服务一致性约束。"
+  }
+}
