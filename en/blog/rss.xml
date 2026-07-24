@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="rss.xsl"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>Aisphere Blog</title>
+        <link>https://aisphereio.github.io/en/blog</link>
+        <description>Aisphere Blog</description>
+        <lastBuildDate>Sun, 06 Jul 2025 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>en</language>
+        <item>
+            <title><![CDATA[Welcome to Aisphere]]></title>
+            <link>https://aisphereio.github.io/en/blog/welcome</link>
+            <guid>https://aisphereio.github.io/en/blog/welcome</guid>
+            <pubDate>Sun, 06 Jul 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[Welcome to the Aisphere documentation website! Aisphere is an AI-native service infrastructure platform built around a specification-driven microservice framework.]]></description>
+            <content:encoded><![CDATA[<p>Welcome to the Aisphere documentation website! Aisphere is an AI-native service infrastructure platform built around a specification-driven microservice framework.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-is-aisphere">What is Aisphere?<a href="https://aisphereio.github.io/en/blog/welcome#what-is-aisphere" class="hash-link" aria-label="Direct link to What is Aisphere?" title="Direct link to What is Aisphere?" translate="no">​</a></h2>
+<p>Aisphere consists of several key components:</p>
+<ul>
+<li class=""><strong>Kernel</strong> — The specification-driven microservice foundation framework</li>
+<li class=""><strong>IAM</strong> — Identity and access management service</li>
+<li class=""><strong>Hub</strong> — AIHub business service for skill management</li>
+<li class=""><strong>Gateway</strong> — Edge gateway for routing and access control</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="whats-next">What's Next?<a href="https://aisphereio.github.io/en/blog/welcome#whats-next" class="hash-link" aria-label="Direct link to What's Next?" title="Direct link to What's Next?" translate="no">​</a></h2>
+<ul>
+<li class="">Explore the <a class="" href="https://aisphereio.github.io/en/docs/kernel/intro">Kernel documentation</a> to get started</li>
+<li class="">Check out the <a class="" href="https://aisphereio.github.io/en/docs/guides/architecture">architecture overview</a></li>
+<li class="">Follow the <a class="" href="https://aisphereio.github.io/en/docs/guides/quickstart">quick start guide</a></li>
+</ul>
+<p>Stay tuned for more updates!</p>]]></content:encoded>
+            <category>Aisphere</category>
+            <category>Announcement</category>
+        </item>
+    </channel>
+</rss>

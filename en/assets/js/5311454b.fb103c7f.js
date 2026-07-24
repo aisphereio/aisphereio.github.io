@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([["3915"],{2185(e){e.exports=JSON.parse('{"tags":[{"label":"Aisphere","permalink":"/en/blog/tags/aisphere","description":"Aisphere project announcements and updates","count":1},{"label":"Announcement","permalink":"/en/blog/tags/announcement","description":"Project announcements","count":1}]}')}}]);

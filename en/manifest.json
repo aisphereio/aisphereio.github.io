@@ -1,0 +1,16 @@
+{
+  "name": "Aisphere Documentation",
+  "short_name": "Aisphere",
+  "description": "AI-Native Service Infrastructure Documentation",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "img/logo.svg",
+      "sizes": "200x200",
+      "type": "image/svg+xml"
+    }
+  ]
+}
